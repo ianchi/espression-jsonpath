@@ -38,7 +38,7 @@ const parser = new JsonPathParser();
 const staticEval = JsonPathStaticEval();
 
 let ast = parser.parse('$..d[:-1]');
-let result = staticEval.eval(ast, {$: {a:1, b:2, c:3, d: [1,2,3]}});
+let result = staticEval.evaluate(ast, {$: {a:1, b:2, c:3, d: [1,2,3]}});
 ```
 
 ### mixed expressions
@@ -50,7 +50,7 @@ import { JsonPath } from 'espression-jsonpath';
 
 const jp = new JsonPath();
 
-let result = jp.evaluate('x + <z..d[:-1]>.values[0]', {x: 10, z: {a:1, b:2, c:3, d: [1,2,3]}});
+let result = jp.eval('x + <z..d[:-1]>.values[0]', {x: 10, z: {a:1, b:2, c:3, d: [1,2,3]}});
 ```
 
 This is shorthand for:
@@ -62,7 +62,7 @@ const parser = new ES5PathParser();
 const staticEval = new JsonPathStaticEval();
 
 let ast = parser.parse('x + <z..d[:-1]>.values[0]');
-let result = staticEval.eval(ast, {x: 10, z: {a:1, b:2, c:3, d: [1,2,3]}});
+let result = staticEval.evaluate(ast, {x: 10, z: {a:1, b:2, c:3, d: [1,2,3]}});
 ```
 
 ## Bundling

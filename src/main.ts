@@ -15,15 +15,15 @@ export class JsonPath {
   static jpParser = new JsonPathParser();
   static espParser = new ES5PathParser();
 
-  eval(ast: INode, ctx: keyedObject): any {
-    return JsonPath.jpEval.eval(ast, ctx);
+  evaluate(ast: INode, ctx: keyedObject): any {
+    return JsonPath.jpEval.evaluate(ast, ctx);
   }
-  parse(expr: string): INode {
-    return JsonPath.espParser.parse(expr);
+  parse(path: string): INode {
+    return JsonPath.espParser.parse(path);
   }
 
-  evaluate(expr: string, ctx: keyedObject): any {
-    return JsonPath.jpEval.eval(JsonPath.espParser.parse(expr), ctx);
+  eval(path: string, ctx: keyedObject): any {
+    return JsonPath.jpEval.eval(JsonPath.espParser.parse(path), ctx);
   }
 
   query(obj: object, path: string): JsonPathResult {
