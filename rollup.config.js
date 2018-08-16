@@ -1,15 +1,14 @@
 import typescript from 'rollup-plugin-typescript2';
 import resolve from 'rollup-plugin-node-resolve';
-import {
-  uglify
-} from 'rollup-plugin-uglify';
+import { uglify } from 'rollup-plugin-uglify';
 
 import pkg from './package.json';
 import path from 'path';
 
 const MAIN_FILE = 'src/main.ts';
 
-export default [{
+export default [
+  {
     input: MAIN_FILE,
     output: {
       name: pkg.name,
@@ -43,8 +42,9 @@ export default [{
 
   {
     input: MAIN_FILE,
-    external: ['tslib'],
-    output: [{
+    external: ['tslib', 'espression'],
+    output: [
+      {
         file: pkg.main,
         format: 'cjs',
         sourcemap: true,
@@ -60,7 +60,7 @@ export default [{
 
   {
     input: MAIN_FILE,
-    external: [],
+    external: ['espression'],
     output: {
       file: pkg.es2015,
       format: 'es',
@@ -70,7 +70,7 @@ export default [{
       typescript({
         tsconfigOverride: {
           compilerOptions: {
-            target: 'es2015'
+            target: 'es2015',
           },
         },
       }),
