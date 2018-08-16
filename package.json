@@ -15,10 +15,10 @@
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
-    "espression": "^1.0.2"
+    "espression": "^1.0.3"
   },
   "devDependencies": {
-    "espression": "^1.0.2",
+    "espression": "^1.0.3",
     "prettier": "^1.14.2",
     "rimraf": "^2.6.2",
     "rollup": "^0.64.1",
