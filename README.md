@@ -16,14 +16,14 @@ jsonPath expressions can be handled in two ways:
 In this case only a valid jsonPath expression is allowed in the parser.
 
 ```
-import { jsonPathFactory } from 'espression';
+import { JsonPath } from 'espression-jsonpath';
 
-const jp = jsonPathFactory();
+const jp = new JsonPath();
 
-let result = jp.jsonPath({a:1, b:2, c:3, d: [1,2,3]}, '$..d[:-1]');
+let result = jp.query({a:1, b:2, c:3, d: [1,2,3]}, '$..d[:-1]');
 ```
 
-The query returns a `jsonPath` object with the following properties:
+The query returns a `JsonPathResult` object with the following properties:
 
 - `values`: array of matching values
 - `paths`: array of matching paths (each an array of strings with the keys)
@@ -32,10 +32,10 @@ The query returns a `jsonPath` object with the following properties:
 This is shorthand for:
 
 ```
-import { jsonPathParserFactory, jsonPathEvalFactory } from 'espression';
+import { JsonPathParser, JsonPathStaticEval } from 'espression-jsonpath';
 
-const parser = jsonPathParserFactory();
-const staticEval = jsonPathEvalFactory();
+const parser = new JsonPathParser();
+const staticEval = JsonPathStaticEval();
 
 let ast = parser.parse('$..d[:-1]');
 let result = staticEval.eval(ast, {$: {a:1, b:2, c:3, d: [1,2,3]}});
@@ -46,9 +46,9 @@ let result = staticEval.eval(ast, {$: {a:1, b:2, c:3, d: [1,2,3]}});
 This preset introduces a new syntax to mix jsonPath inside a normal ES5 expression with a jsonPath literal notation. It is a regular jsonPath expression enclosed in `<>`, it returns a `jsonPath` object as described above.
 
 ```
-import { jsonPathFactory } from 'espression';
+import { JsonPath } from 'espression-jsonpath';
 
-const jp = jsonPathFactory();
+const jp = new JsonPath();
 
 let result = jp.evaluate('x + <z..d[:-1]>.values[0]', {x: 10, z: {a:1, b:2, c:3, d: [1,2,3]}});
 ```
@@ -56,10 +56,10 @@ let result = jp.evaluate('x + <z..d[:-1]>.values[0]', {x: 10, z: {a:1, b:2, c:3,
 This is shorthand for:
 
 ```
-import { es5PathParserFactory, jsonPathEvalFactory } from 'espression';
+import { ES5PathParser, JsonPathStaticEval } from 'espression-jsonpath';
 
-const parser = es5PathParserFactory();
-const staticEval = jsonPathEvalFactory();
+const parser = new ES5PathParser();
+const staticEval = new JsonPathStaticEval();
 
 let ast = parser.parse('x + <z..d[:-1]>.values[0]');
 let result = staticEval.eval(ast, {x: 10, z: {a:1, b:2, c:3, d: [1,2,3]}});
