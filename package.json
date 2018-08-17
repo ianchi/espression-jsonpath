@@ -6,7 +6,6 @@
   "license": "MIT",
   "repository": "https://github.com/ianchi/ESpression-jsonpath.git",
   "main": "dist/bundle/espression-jsonpath.cjs.js",
-  "browser": "dist/bundle/espression-jsonpath.umd.js",
   "module": "dist/esm5/espression-jsonpath.js",
   "es2015": "dist/esm2015/espression-jsonpath.js",
   "types": "dist/src/main.d.ts",
@@ -15,16 +14,14 @@
     "tslib": "^1.9.3"
   },
   "peerDependencies": {
-    "espression": "^1.0.3"
+    "espression": "^1.1.0"
   },
   "devDependencies": {
-    "espression": "^1.0.3",
+    "espression": "^1.1.0",
     "prettier": "^1.14.2",
     "rimraf": "^2.6.2",
     "rollup": "^0.64.1",
-    "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-typescript2": "^0.16.0",
-    "rollup-plugin-uglify": "^4.0.0",
     "standard-version": "^4.4.0",
     "ts-node": "^7.0.0",
     "tslint": "^5.11.0",
@@ -39,7 +36,7 @@
     "test": "node test/test.js",
     "lint": "tslint -p . ",
     "prerelease": "npm run lint && npm run build && npm run test",
-    "release": "standard-version && npm publish && git push --follow-tags"
+    "release": "standard-version && git push --follow-tags && npm publish"
   },
   "keywords": [
     "parser",
