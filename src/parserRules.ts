@@ -24,6 +24,7 @@ import {
   PROPERTY,
   STATEMENT,
   StringRule,
+  TOKEN,
   UNARY_EXP,
   UNARY_TYPE_PRE,
   UnaryOperatorRule,
@@ -118,11 +119,9 @@ export class ES5PathParser extends Parser {
   constructor() {
     const esPathRules = jsonPathRules();
 
-    // add the '<$..path>' notation as jsonPath operand, with priority just before tokens
+    // add the '<$..path>' notation as jsonPath literal, with priority as first token
 
-    esPathRules[UNARY_EXP].unshift(
-      new UnaryOperatorRule({ '<': { close: '>', subRules: JPEXP_EXP } })
-    );
+    esPathRules[TOKEN].unshift(new UnaryOperatorRule({ '<': { close: '>', subRules: JPEXP_EXP } }));
     super(esPathRules, STATEMENT);
   }
 }
