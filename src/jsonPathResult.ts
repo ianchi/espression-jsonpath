@@ -46,7 +46,7 @@ export class JsonPathResult {
     this.forEach((val, path, _depth) => {
       if (!Array.isArray(val)) return;
 
-      const first: number =
+      let first: number =
         _start === 0
           ? 0
           : _start
@@ -56,6 +56,9 @@ export class JsonPathResult {
             : _step > 0
               ? 0
               : val.length - 1;
+
+      if (first < 0 && _step > 0) first = 0;
+      else if (_step < 0 && first >= val.length) first = val.length - 1;
 
       const last: number =
         _end === 0 ? 0 : _end ? (_end < 0 ? val.length + _end : _end) : _step > 0 ? val.length : -1;

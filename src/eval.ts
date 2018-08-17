@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { ES5StaticEval, INode, keyedObject, LITERAL_EXP } from 'espression';
+import { ES5StaticEval, INode, keyedObject } from 'espression';
 
 import { JPEXP_EXP, JPFILTER_EXP, JPSLICE_EXP, JPUNION_EXP, JPWILDCARD_EXP } from './parserRules';
 
@@ -38,7 +38,7 @@ export class JsonPathStaticEval extends ES5StaticEval {
 
     return props.reduce((acum: JsonPathResult, n: any) => {
       let ret = new JsonPathResult(obj);
-      let member: string;
+      let member: any;
       switch (n.type) {
         case JPEXP_EXP:
           obj.forEach((val, path, _depth) => {
@@ -71,13 +71,17 @@ export class JsonPathStaticEval extends ES5StaticEval {
           break;
 
         default:
-          member = n.type === LITERAL_EXP ? n.value.toString() : n.name;
+          member = node.computed ? this._eval(n, context) : n.name;
 
           obj.forEach((val, path, _depth) => {
+            if (Array.isArray(val) && member < 0 && val.length + member in val) {
+              ret.push(val[val.length + member], path.concat(val.length + member));
+            }
             if (typeof val === 'object' && member in val) {
               ret.push(val[member], path.concat(member));
             }
           }, descendant ? undefined : 0);
+          break;
       }
       return acum ? acum.concat(ret) : ret;
     }, null);
