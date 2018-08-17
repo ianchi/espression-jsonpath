@@ -23,11 +23,11 @@ export class JsonPath {
   }
 
   eval(path: string, ctx: keyedObject): any {
-    return JsonPath.jpEval.eval(JsonPath.espParser.parse(path), ctx);
+    return JsonPath.jpEval.evaluate(JsonPath.espParser.parse(path), ctx);
   }
 
   query(obj: object, path: string): JsonPathResult {
-    return <JsonPathResult>JsonPath.jpEval.eval(JsonPath.jpParser.parse(path), { $: obj });
+    return <JsonPathResult>JsonPath.jpEval.evaluate(JsonPath.jpParser.parse(path), { $: obj });
   }
 }
 
