@@ -19,6 +19,9 @@ export class JsonPathStaticEval extends ES5StaticEval {
     return new JsonPathResult(context[node.name]);
   }
 
+  protected JPRootExpr(node: INode, context: keyedObject): JsonPathResult {
+    return new JsonPathResult(this._eval(node.argument, context));
+  }
   protected JPChildExpression(node: INode, context: keyedObject): JsonPathResult {
     return this.evalMember(this._eval(node.object, context), node, false, context);
   }

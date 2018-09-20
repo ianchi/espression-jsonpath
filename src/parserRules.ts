@@ -71,6 +71,7 @@ export function jsonPathRules(identStart?: ICharClass, identPart?: ICharClass): 
       '..': { ...MEMBER_CONF, type: JPDESC_EXP },
       '..[': { ...COMPUTED_CONF, type: JPDESC_EXP },
     }),
+    new UnaryOperatorRule({ '(': { close: ')', subRules: EXPRESSION, type: 'JProotExpr' } }),
     new IdentifierRule({ typeIdent: 'JPRoot' }),
   ];
   rules[JPCHILD_EXP] = [new IdentifierRule(), wildcardRule];
