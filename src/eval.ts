@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { ES5StaticEval, INode, keyedObject } from 'espression';
+import { ES6StaticEval, INode, keyedObject } from 'espression';
 
 import { JsonPathResult } from './jsonPathResult';
 import { JPEXP_EXP, JPFILTER_EXP, JPSLICE_EXP, JPUNION_EXP, JPWILDCARD_EXP } from './parserRules';
@@ -13,7 +13,7 @@ import { JPEXP_EXP, JPFILTER_EXP, JPSLICE_EXP, JPUNION_EXP, JPWILDCARD_EXP } fro
 /**
  * Static-eval extension to evaluate JsonPath AST nodes
  */
-export class JsonPathStaticEval extends ES5StaticEval {
+export class JsonPathStaticEval extends ES6StaticEval {
   protected JPRoot(node: INode, context: keyedObject): JsonPathResult {
     return new JsonPathResult(context[node.name]);
   }
