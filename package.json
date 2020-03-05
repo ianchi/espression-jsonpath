@@ -11,23 +11,22 @@
   "types": "dist/src/main.d.ts",
   "private": false,
   "dependencies": {
-    "tslib": "^1.9.3"
+    "tslib": "^1.11.1"
   },
   "peerDependencies": {
-    "espression": "^1.1.0"
+    "espression": "^1.5.0"
   },
   "devDependencies": {
-    "espression": "^1.1.0",
-    "prettier": "^1.14.2",
-    "rimraf": "^2.6.2",
-    "rollup": "^0.64.1",
-    "rollup-plugin-typescript2": "^0.16.0",
-    "standard-version": "^4.4.0",
-    "ts-node": "^7.0.0",
-    "tslint": "^5.11.0",
-    "typedoc": "^0.11.1",
-    "typedoc-plugin-markdown": "^1.1.13",
-    "typescript": "^2.9.2"
+    "espression": "^1.5.0",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^1.32.0",
+    "rollup-plugin-typescript2": "^0.26.0",
+    "standard-version": "^7.1.0",
+    "tslint": "^6.0.0",
+    "typedoc": "^0.16.11",
+    "typedoc-plugin-markdown": "^2.2.17",
+    "typescript": "^3.8.3"
   },
   "scripts": {
     "prebuild": "rimraf dist",
