@@ -9,11 +9,11 @@ import { INode, keyedObject } from 'espression';
 
 import { JsonPathStaticEval } from './eval';
 import { JsonPathResult } from './jsonPathResult';
-import { ES5PathParser, JsonPathParser } from './parserRules';
+import { ESPathParser, JsonPathParser } from './parserRules';
 export class JsonPath {
   static jpEval = new JsonPathStaticEval();
   static jpParser = new JsonPathParser();
-  static espParser = new ES5PathParser();
+  static espParser = new ESPathParser();
 
   evaluate(ast: INode, ctx: keyedObject): any {
     return JsonPath.jpEval.evaluate(ast, ctx);
@@ -33,4 +33,4 @@ export class JsonPath {
 
 export { JsonPathStaticEval } from './eval';
 export { JsonPathResult } from './jsonPathResult';
-export { ES5PathParser, JsonPathParser } from './parserRules';
+export { ESPathParser, JsonPathParser } from './parserRules';

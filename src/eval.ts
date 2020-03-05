@@ -7,9 +7,8 @@
 
 import { ES5StaticEval, INode, keyedObject } from 'espression';
 
-import { JPEXP_EXP, JPFILTER_EXP, JPSLICE_EXP, JPUNION_EXP, JPWILDCARD_EXP } from './parserRules';
-
 import { JsonPathResult } from './jsonPathResult';
+import { JPEXP_EXP, JPFILTER_EXP, JPSLICE_EXP, JPUNION_EXP, JPWILDCARD_EXP } from './parserRules';
 
 /**
  * Static-eval extension to evaluate JsonPath AST nodes

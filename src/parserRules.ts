@@ -7,7 +7,7 @@
 
 import {
   BinaryOperatorRule,
-  es5Rules,
+  esNextRules,
   EXPRESSION,
   EXPRESSIONS,
   ICharClass,
@@ -25,9 +25,9 @@ import {
   STATEMENT,
   StringRule,
   TOKEN,
+  UnaryOperatorRule,
   UNARY_EXP,
   UNARY_TYPE_PRE,
-  UnaryOperatorRule,
 } from 'espression';
 
 export const JPCHILD_EXP = 'JPChildExpression',
@@ -63,7 +63,7 @@ export function jsonPathRules(identStart?: ICharClass, identPart?: ICharClass): 
   });
 
   // adds '@' as valid identifier start
-  const rules = es5Rules({ ...identStart, re: /[@$_A-Za-z]/ }, identPart);
+  const rules = esNextRules({ ...identStart, re: /[@$_A-Za-z]/ }, identPart);
   rules[JPEXP_EXP] = [
     new BinaryOperatorRule({
       '.': MEMBER_CONF,
@@ -116,11 +116,16 @@ export function jsonPathRules(identStart?: ICharClass, identPart?: ICharClass): 
   return rules;
 }
 
-export class ES5PathParser extends Parser {
+
+/**
+ * Extended ES-next parser.
+ *  add the '<$..path>' notation as jsonPath literal, with priority as first token
+ * 
+ */
+export class ESPathParser extends Parser {
   constructor() {
     const esPathRules = jsonPathRules();
 
-    // add the '<$..path>' notation as jsonPath literal, with priority as first token
 
     esPathRules[TOKEN].unshift(new UnaryOperatorRule({ '<': { close: '>', subRules: JPEXP_EXP } }));
     super(esPathRules, STATEMENT);
