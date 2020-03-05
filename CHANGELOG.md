@@ -1,6 +1,13 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.1.1](https://github.com/ianchi/ESpression-jsonpath/compare/v0.1.0...v0.1.1) (2020-03-05)
+
+
+### Features
+
+* use ESnext preset as underlying paser ([5c8f874](https://github.com/ianchi/ESpression-jsonpath/commit/5c8f8748ceb5ca6210e9452ed12d03c235ef0006))
 
 <a name="0.1.0"></a>
 # [0.1.0](https://github.com/ianchi/ESpression-jsonpath/compare/v0.0.4...v0.1.0) (2018-09-20)
