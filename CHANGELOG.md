@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/ianchi/ESpression-jsonpath/compare/v0.1.2...v0.1.3) (2020-03-15)
+
+
+### Bug Fixes
+
+* use ES6 static eval ([41793bd](https://github.com/ianchi/ESpression-jsonpath/commit/41793bd6209893560649e037657411b3324ec9e5))
+
 ### [0.1.2](https://github.com/ianchi/ESpression-jsonpath/compare/v0.1.1...v0.1.2) (2020-03-05)
 
 ### [0.1.1](https://github.com/ianchi/ESpression-jsonpath/compare/v0.1.0...v0.1.1) (2020-03-05)
