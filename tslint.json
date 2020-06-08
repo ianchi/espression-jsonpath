@@ -1,5 +1,4 @@
 {
-
   "rules": {
     "adjacent-overload-signatures": true,
     "array-type": [true, "array-simple"],
@@ -19,9 +18,13 @@
     },
     "callable-types": true,
     "class-name": true,
-    "comment-format": [true, "check-space", {
-      "ignore-words": ["TODO"]
-    }],
+    "comment-format": [
+      true,
+      "check-space",
+      {
+        "ignore-words": ["TODO"]
+      }
+    ],
 
     "deprecation": true,
     "encoding": true,
@@ -76,9 +79,12 @@
     "no-reference": true,
     "no-reference-import": true,
     "no-require-imports": true,
-    "no-shadowed-variable": [true, {
-      "temporalDeadZone": false
-    }],
+    "no-shadowed-variable": [
+      true,
+      {
+        "temporalDeadZone": false
+      }
+    ],
     "no-sparse-arrays": true,
     "no-string-literal": false,
     "no-string-throw": true,
@@ -86,7 +92,6 @@
     "no-unnecessary-initializer": true,
     "no-unsafe-any": false,
     "no-unused-expression": [true, "allow-fast-null-checks"],
-    "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-var-requires": true,
     "object-literal-key-quotes": {
