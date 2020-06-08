@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/ianchi/ESpression-jsonpath/compare/v0.1.3...v0.1.4) (2020-06-08)
+
+
+### Bug Fixes
+
+* error on wildcard ([527c8f1](https://github.com/ianchi/ESpression-jsonpath/commit/527c8f1244923a1d92d812992d8014c9806d2ace))
+
 ### [0.1.3](https://github.com/ianchi/ESpression-jsonpath/compare/v0.1.2...v0.1.3) (2020-03-15)
 
 
