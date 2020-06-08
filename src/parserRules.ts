@@ -98,6 +98,7 @@ export function jsonPathRules(identStart?: ICharClass, identPart?: ICharClass): 
         subRules: NOCOMMA_EXPR,
       },
     }),
+    wildcardRule,
     new MultiOperatorRule({
       type: JPSLICE_EXP,
       prop: EXPRESSIONS,
@@ -110,22 +111,19 @@ export function jsonPathRules(identStart?: ICharClass, identPart?: ICharClass): 
     new UnaryOperatorRule(opConf(['-', '+'], UNARY_TYPE_PRE)),
     new NumberRule({ radix: 10, decimal: false }),
     new StringRule(),
-    wildcardRule,
   ];
 
   return rules;
 }
 
-
 /**
  * Extended ES-next parser.
  *  add the '<$..path>' notation as jsonPath literal, with priority as first token
- * 
+ *
  */
 export class ESPathParser extends Parser {
   constructor() {
     const esPathRules = jsonPathRules();
-
 
     esPathRules[TOKEN].unshift(new UnaryOperatorRule({ '<': { close: '>', subRules: JPEXP_EXP } }));
     super(esPathRules, STATEMENT);
