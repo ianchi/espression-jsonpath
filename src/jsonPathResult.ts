@@ -5,12 +5,16 @@
  * https://opensource.org/licenses/MIT
  */
 
+/* eslint-disable @typescript-eslint/ban-types */
+
 /**
  * Represents the result of a JsonPath query.
  */
 export class JsonPathResult {
   values: any[] = [];
+
   paths: string[][] = [];
+
   root: object;
 
   constructor(obj: JsonPathResult | object) {
@@ -25,7 +29,7 @@ export class JsonPathResult {
 
   // array like functions
 
-  push(value: any, path: string[]): void {
+  push(value: unknown, path: string[]): void {
     this.values.push(value);
     this.paths.push(path);
   }
@@ -39,38 +43,49 @@ export class JsonPathResult {
     const ret = new JsonPathResult(this);
 
     if (step === 0) return ret;
-    const _step = toInt(step) || 1,
-      _start = toInt(start),
-      _end = toInt(end);
+    const _step = toInt(step) || 1;
+    const _start = toInt(start);
+    const _end = toInt(end);
 
-    this.forEach((val, path, _depth) => {
-      if (!Array.isArray(val)) return;
+    this.forEach(
+      (val, path, _depth) => {
+        if (!Array.isArray(val)) return;
 
-      let first: number =
-        _start === 0
-          ? 0
-          : _start
+        let first: number =
+          _start === 0
+            ? 0
+            : _start
             ? _start < 0
               ? val.length + _start
               : _start
             : _step > 0
-              ? 0
-              : val.length - 1;
+            ? 0
+            : val.length - 1;
 
-      if (first < 0 && _step > 0) first = 0;
-      else if (_step < 0 && first >= val.length) first = val.length - 1;
+        if (first < 0 && _step > 0) first = 0;
+        else if (_step < 0 && first >= val.length) first = val.length - 1;
 
-      const last: number =
-        _end === 0 ? 0 : _end ? (_end < 0 ? val.length + _end : _end) : _step > 0 ? val.length : -1;
+        const last: number =
+          _end === 0
+            ? 0
+            : _end
+            ? _end < 0
+              ? val.length + _end
+              : _end
+            : _step > 0
+            ? val.length
+            : -1;
 
-      for (
-        let i = first;
-        ((_step > 0 && i < last) || (_step < 0 && i > last)) && i < val.length && i >= 0;
-        i += _step
-      ) {
-        ret.push(val[i], path.concat(i.toString()));
-      }
-    }, descendant ? undefined : 0);
+        for (
+          let i = first;
+          ((_step > 0 && i < last) || (_step < 0 && i > last)) && i < val.length && i >= 0;
+          i += _step
+        ) {
+          ret.push(val[i], path.concat(i.toString()));
+        }
+      },
+      descendant ? undefined : 0
+    );
     return ret;
   }
 
@@ -99,7 +114,7 @@ function traverse(
   obj: any,
   root: string[],
   maxDepth: number | undefined,
-  callback: (val: any, path: string[], depth: number) => void,
+  callback: (val: any, path: string[], depthLevel: number) => void,
   depth: number
 ): void {
   let path: string[];
@@ -112,7 +127,6 @@ function traverse(
     }
   } else if (typeof obj === 'object') {
     for (const prop in obj) {
-      if (!obj.hasOwnProperty(prop)) continue;
       path = root.concat(prop);
       if (callback) callback(obj[prop], path, depth);
       if (!maxDepth || depth < maxDepth) traverse(obj[prop], path, maxDepth, callback, depth + 1);
@@ -127,7 +141,7 @@ function toInt(val: number | string | undefined): number | undefined {
       ret = undefined;
     } else {
       ret = parseInt(val, 10);
-      if (isNaN(ret)) throw new Error('Invalid number');
+      if (Number.isNaN(ret)) throw new Error('Invalid number');
     }
   } else ret = val;
 

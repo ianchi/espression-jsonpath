@@ -21,6 +21,7 @@ export class JsonPathStaticEval extends ES6StaticEval {
   protected JPRootExpr(node: INode, context: keyedObject): JsonPathResult {
     return new JsonPathResult(this._eval(node.argument, context));
   }
+
   protected JPChildExpression(node: INode, context: keyedObject): JsonPathResult {
     return this.evalMember(this._eval(node.object, context), node, false, context);
   }
@@ -40,24 +41,30 @@ export class JsonPathStaticEval extends ES6StaticEval {
 
     return props.reduce((acum: JsonPathResult, n: any) => {
       let ret = new JsonPathResult(obj);
-      let member: any;
+      let member: number | any;
       switch (n.type) {
         case JPEXP_EXP:
-          obj.forEach((val, path, _depth) => {
-            if (typeof val === 'object') {
-              childContext['@'] = val;
-              member = this._eval(n.expression, childContext);
-              if (member in val) ret.push(val[member], path.concat(member));
-            }
-          }, descendant ? undefined : 0);
+          obj.forEach(
+            (val, path, _depth) => {
+              if (typeof val === 'object') {
+                childContext['@'] = val;
+                member = this._eval(n.expression, childContext);
+                if (member in val) ret.push(val[member], path.concat(member));
+              }
+            },
+            descendant ? undefined : 0
+          );
           break;
 
         case JPFILTER_EXP:
-          obj.forEach((val, path, depth) => {
-            if (!depth) return; // filter applies on children
-            childContext['@'] = val;
-            if (this._eval(n.expression, childContext)) ret.push(val, path);
-          }, descendant ? undefined : 1);
+          obj.forEach(
+            (val, path, depth) => {
+              if (!depth) return; // filter applies on children
+              childContext['@'] = val;
+              if (this._eval(n.expression, childContext)) ret.push(val, path);
+            },
+            descendant ? undefined : 1
+          );
           break;
 
         case JPSLICE_EXP:
@@ -66,23 +73,34 @@ export class JsonPathStaticEval extends ES6StaticEval {
           break;
 
         case JPWILDCARD_EXP:
-          obj.forEach((val, path, depth) => {
-            if (!depth) return; // applies on children
-            ret.push(val, path);
-          }, descendant ? undefined : 1);
+          obj.forEach(
+            (val, path, depth) => {
+              if (!depth) return; // applies on children
+              ret.push(val, path);
+            },
+            descendant ? undefined : 1
+          );
           break;
 
         default:
           member = node.computed ? this._eval(n, context) : n.name;
 
-          obj.forEach((val, path, _depth) => {
-            if (Array.isArray(val) && member < 0 && val.length + member in val) {
-              ret.push(val[val.length + member], path.concat(val.length + member));
-            }
-            if (typeof val === 'object' && member in val) {
-              ret.push(val[member], path.concat(member));
-            }
-          }, descendant ? undefined : 0);
+          obj.forEach(
+            (val, path, _depth) => {
+              if (
+                Array.isArray(val) &&
+                typeof member === 'number' &&
+                member < 0 &&
+                val.length + member in val
+              ) {
+                ret.push(val[val.length + member], path.concat((val.length + member).toString()));
+              }
+              if (typeof val === 'object' && member in val) {
+                ret.push(val[member], path.concat(member));
+              }
+            },
+            descendant ? undefined : 0
+          );
           break;
       }
       return acum ? acum.concat(ret) : ret;

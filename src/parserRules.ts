@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /**
  * Copyright (c) 2018 Adrian Panella <ianchi74@outlook.com>
  *
@@ -30,35 +31,36 @@ import {
   UNARY_TYPE_PRE,
 } from 'espression';
 
-export const JPCHILD_EXP = 'JPChildExpression',
-  JPDESC_EXP = 'JPDescendantExpression',
-  JPUNION_EXP = 'JPUnionExpression',
-  JPFILTER_EXP = 'JPFilterExpression',
-  JPSLICE_EXP = 'JPSliceExpression',
-  JPWILDCARD_EXP = 'JPWildcard',
-  JPEXP_EXP = 'JPExpression';
+export const JPCHILD_EXP = 'JPChildExpression';
+export const JPDESC_EXP = 'JPDescendantExpression';
+export const JPUNION_EXP = 'JPUnionExpression';
+export const JPFILTER_EXP = 'JPFilterExpression';
+export const JPSLICE_EXP = 'JPSliceExpression';
+export const JPWILDCARD_EXP = 'JPWildcard';
+export const JPEXP_EXP = 'JPExpression';
 
 const COMPUTED_CONF: IConfBinaryOp = {
-    type: JPCHILD_EXP,
-    left: OBJECT,
-    right: PROPERTY,
-    extra: { computed: true },
-    subRules: 'computed',
-    close: ']',
-  },
-  MEMBER_CONF: IConfBinaryOp = {
-    type: JPCHILD_EXP,
-    left: OBJECT,
-    right: PROPERTY,
-    extra: { computed: false },
-    subRules: JPCHILD_EXP,
-  };
+  type: JPCHILD_EXP,
+  left: OBJECT,
+  right: PROPERTY,
+  extra: { computed: true },
+  subRules: 'computed',
+  close: ']',
+};
+const MEMBER_CONF: IConfBinaryOp = {
+  type: JPCHILD_EXP,
+  left: OBJECT,
+  right: PROPERTY,
+  extra: { computed: false },
+  subRules: JPCHILD_EXP,
+};
 
 export function jsonPathRules(identStart?: ICharClass, identPart?: ICharClass): IRuleSet {
   // properties can have reserved words as names
   const wildcardRule = new IdentifierRule({
     typeIdent: JPWILDCARD_EXP,
     identStart: { re: /[*]/, re2: undefined },
+    // eslint-disable-next-line no-empty-character-class
     identPart: { re: /[]/, re2: undefined },
   });
 
@@ -129,7 +131,6 @@ export class ESPathParser extends Parser {
     super(esPathRules, STATEMENT);
   }
 }
-// tslint:disable-next-line:max-classes-per-file
 export class JsonPathParser extends Parser {
   constructor() {
     super(jsonPathRules(), JPEXP_EXP);

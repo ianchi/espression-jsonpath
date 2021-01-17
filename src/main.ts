@@ -10,14 +10,18 @@ import { INode, keyedObject } from 'espression';
 import { JsonPathStaticEval } from './eval';
 import { JsonPathResult } from './jsonPathResult';
 import { ESPathParser, JsonPathParser } from './parserRules';
+
 export class JsonPath {
   static jpEval = new JsonPathStaticEval();
+
   static jpParser = new JsonPathParser();
+
   static espParser = new ESPathParser();
 
   evaluate(ast: INode, ctx: keyedObject): any {
     return JsonPath.jpEval.evaluate(ast, ctx);
   }
+
   parse(path: string): INode {
     return JsonPath.espParser.parse(path);
   }
@@ -26,6 +30,7 @@ export class JsonPath {
     return JsonPath.jpEval.evaluate(JsonPath.espParser.parse(path), ctx);
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   query(obj: object, path: string): JsonPathResult {
     return <JsonPathResult>JsonPath.jpEval.evaluate(JsonPath.jpParser.parse(path), { $: obj });
   }
