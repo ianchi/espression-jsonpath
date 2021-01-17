@@ -15,11 +15,6 @@ export default [
         format: 'cjs',
         sourcemap: true,
       },
-      {
-        file: pkg.module,
-        format: 'es',
-        sourcemap: true,
-      },
     ],
     plugins: [typescript()],
   },
@@ -37,7 +32,7 @@ export default [
         useTsconfigDeclarationDir: true,
         tsconfigOverride: {
           compilerOptions: {
-            target: 'es2015',
+            target: 'es2020',
             declaration: true,
             declarationDir: path.dirname(pkg.types),
           },

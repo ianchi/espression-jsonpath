@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": "https://github.com/ianchi/ESpression-jsonpath.git",
   "main": "dist/bundle/espression-jsonpath.cjs.js",
-  "module": "dist/esm5/espression-jsonpath.js",
+  "module": "dist/esm2015/espression-jsonpath.js",
   "es2015": "dist/esm2015/espression-jsonpath.js",
   "types": "dist/src/main.d.ts",
   "private": false,
